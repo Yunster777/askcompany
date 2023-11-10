@@ -35,3 +35,7 @@ def post_detail(request: HttpRequest, pk: int) -> HttpResponse:
     # }
     #
     # return render(request, 'instagram/post_detail.html', context)
+
+
+def archives_year(request: HttpRequest, year: int) -> HttpResponse:
+    return HttpResponse(f'{year}년 archives')
