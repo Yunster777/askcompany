@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     # third apps
     "django_extensions",
     "debug_toolbar",
+    "bootstrap4",
 
     # local apps
     "blog1",
@@ -65,7 +66,10 @@ ROOT_URLCONF = "config.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [TEMPLATES_DIR],
+        "DIRS": [
+            # File System Template Loader
+            TEMPLATES_DIR,
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [

@@ -1,2 +1,5 @@
 django~=4.2.6
 pillow
+django-debug-toolbar
+django-extensions
+django-bootstrap4

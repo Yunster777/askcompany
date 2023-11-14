@@ -8,10 +8,16 @@
 <body>
     <h1>Detail</h1>
 
+    <p>Author: {{ post.author }}</p>
     <p>message: {{ post.message }}</p>
     <p>is_public: {{ post.is_public }}</p>
     <p>created_at: {{ post.created_at }}</p>
     <p>updated_at: {{ post.updated_at }}</p>
+    {% if post.photo %}
+        <div>
+            <img src="{{ post.photo.url }}" />
+        </div>
+    {% endif %}
 
 </body>
 </html>

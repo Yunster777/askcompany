@@ -18,7 +18,7 @@ register_converter(YearConverter, 'year')
 app_name = 'instagram'
 urlpatterns = [
     path('', post_list, name='post_list'),
-    path('<int:pk>/', post_detail),
+    path('<int:pk>/', post_detail, name='post_detail'),
     # path('archives/<int:year>/', archives_year),
     # re_path(r'archives/(?P<year>20\d{2})/', archives_year),
     path('archives/<year:year>/', archives_year),
