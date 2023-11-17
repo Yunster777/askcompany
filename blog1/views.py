@@ -5,6 +5,6 @@ from .models import Post
 def post_list(request):
     qs = Post.objects.all()
     context = {
-        'post_list': qs,
+        "post_list": qs,
     }
-    return render(request, 'blog1/post_list.html', context)
+    return render(request, "blog1/post_list.html", context)

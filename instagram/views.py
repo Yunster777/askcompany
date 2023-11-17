@@ -1,10 +1,20 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse, HttpRequest
-from django.views.generic import ListView
+from django.utils.decorators import method_decorator
+from django.views.generic import (
+    ListView,
+    ArchiveIndexView,
+    YearArchiveView,
+    MonthArchiveView,
+    DayArchiveView,
+)
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import DetailView
 from .models import Post
 
 
+# @login_required
 # def post_list(request: HttpRequest) -> HttpResponse:
 #     qs = Post.objects.all()
 #     q = request.GET.get('q', '')
@@ -20,10 +30,20 @@ from .models import Post
 #     return render(request, 'instagram/post_list.html', context)
 
 
-post_list = ListView.as_view(
-    model=Post,
-    paginate_by=10,
-)
+@method_decorator(login_required, name="dispatch")
+class PostListView(ListView):
+    model = Post
+    paginate_by = 15
+    # ordering = ['created_at']
+
+
+post_list = PostListView.as_view()
+
+
+# post_list = ListView.as_view(
+#     model=Post,
+#     paginate_by=10,
+# )
 
 
 # def generate_view_fn(model):
@@ -41,6 +61,7 @@ post_list = ListView.as_view(
 # post_detail = generate_view_fn(Post)
 
 
+@method_decorator(login_required, name="dispatch")
 class PostDetailView(DetailView):
     model = Post
 
@@ -69,5 +90,22 @@ post_detail = PostDetailView.as_view()
 #     return render(request, 'instagram/post_detail.html', context)
 
 
-def archives_year(request: HttpRequest, year: int) -> HttpResponse:
-    return HttpResponse(f'{year}년 archives')
+# def archives_year(request: HttpRequest, year: int) -> HttpResponse:
+#     return HttpResponse(f'{year}년 archives')
+
+
+post_archive = ArchiveIndexView.as_view(
+    model=Post, date_field="created_at", paginate_by=10
+)
+
+post_archive_year = YearArchiveView.as_view(
+    model=Post, date_field="created_at", make_object_list=True
+)
+
+post_archive_month = MonthArchiveView.as_view(
+    model=Post, date_field="created_at", month_format="%m"
+)
+
+post_archive_day = DayArchiveView.as_view(
+    model=Post, date_field="created_at", month_format="%m"
+)
