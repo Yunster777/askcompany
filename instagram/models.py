@@ -1,10 +1,12 @@
 from django.db import models
 from django.conf import settings
+from django.core.validators import MinLengthValidator
+from django.urls import reverse
 
 
 class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    message = models.TextField()
+    message = models.TextField(validators=[MinLengthValidator(10)])
     # 이미지 필드 쓰게 되면 필히 pillow 라이브러리 설치
     photo = models.ImageField(blank=True, upload_to="instagram/post/%Y/%m/%d")
     tag_set = models.ManyToManyField("Tag", blank=True)
@@ -20,8 +22,6 @@ class Post(models.Model):
     # python: resolve_url(post), redirect(post)
     # html: {{ post.get_absolute_url }}
     def get_absolute_url(self):
-        from django.urls import reverse
-
         return reverse("instagram:post_detail", args=[self.pk])
 
     class Meta:

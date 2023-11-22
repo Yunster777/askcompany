@@ -10,13 +10,25 @@ Instagram / Post Detail
 {% block content %}
 
 <h1>Detail</h1>
+<br/>
 
-<p>Author: {{ post.author }}</p>
-<p>message: {{ post.message }}</p>
-<p>is_public: {{ post.is_public }}</p>
-<p>created_at: {{ post.created_at }}</p>
-<p>updated_at: {{ post.updated_at }}</p>
+<h2>author</h2>
+<p>{{ post.author }}</p>
+
+<h2>message</h2>
+<p>{{ post.message|linebreaks }}</p>
+
+<h2>is_public</h2>
+<p>{{ post.is_public }}</p>
+
+<h2>created_at</h2>
+<p>{{ post.created_at }}</p>
+
+<h2>updated_at</h2>
+<p>{{ post.updated_at }}</p>
+
 {% if post.photo %}
+<h2>photo</h2>
 <div>
     <img src="{{ post.photo.url }}"/>
 </div>
@@ -24,6 +36,8 @@ Instagram / Post Detail
 
 <hr/>
 <a href="{% url 'instagram:post_list' %}" class="btn btn-primary">목록</a>
+<a href="{% url 'instagram:post_edit' post.pk %}" class="btn btn-secondary">수정</a>
+<a href="{% url 'instagram:post_delete' post.pk %}" class="btn btn-danger">삭제</a>
 
 {% endblock content %}
 

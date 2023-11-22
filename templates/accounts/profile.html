@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+Account / Profile
+{% endblock title %}
+
+{% block content %}
+<h1>Profile</h1>
+<h2>User</h2>
+<p>{{ user }}</p>
+{% if user.profile %}
+    <h2>Profile</h2>
+    <ul>
+        <li>address: {{ user.profile.address }}</li>
+        <li>zipcode: {{ user.profile.zipcode }}</li>
+    </ul>
+
+{% endif %}
+
+<a href="{% url 'accounts:profile_edit' %}" class="btn btn-primary">
+    {% if user.profile %}
+        프로필 수정
+    {% else %}
+        프로필 생성
+    {% endif %}
+</a>
+
+{% endblock content %}

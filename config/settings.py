@@ -12,6 +12,14 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os.path
 from pathlib import Path
 
+# 메세지 태그를 bootstrap과 맞추기
+from django.contrib.messages import constants as messages_constants
+
+MESSAGE_TAGS = {
+    messages_constants.DEBUG: "secondary",
+    messages_constants.ERROR: "danger",
+}
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR = BASE_DIR / "templates"
@@ -26,6 +34,8 @@ SECRET_KEY = "django-insecure-vsz^q=+tfb#msl-qbei@!8=e)634nel51=3lpfs%@l1-j5hq0d
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
+# LOGIN_REDIRECT_URL = "instagram:post_list"
 
 
 # Application definition
